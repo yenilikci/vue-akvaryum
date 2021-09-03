@@ -77,7 +77,6 @@
         .post("http://81.213.78.251:4003/Project/ProjectList")
         .then((response) => {
           this.projects = response.data.Result;
-          console.log(response.data.Result);
         });
     },
   };

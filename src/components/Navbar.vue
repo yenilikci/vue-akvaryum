@@ -8,30 +8,52 @@
 
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav>
-            <b-nav-item href="#"
+            <router-link to="/" tag="b-nav-item"
               ><b-icon-house-door-fill class="mb-1"></b-icon-house-door-fill>
-              Anasayfa</b-nav-item
-            >
+              Anasayfa
+            </router-link>
           </b-navbar-nav>
 
-          <b-navbar-nav class="ml-auto">
-            <b-nav-item-dropdown right>
+          <b-navbar-nav class="ml-auto" :class="loginClass">
+            <b-nav-item-dropdown right class="border border-secondary rounded">
               <template #button-content>
                 <b-icon-person-fill class="mb-1 mr-2"></b-icon-person-fill
                 >Üyelik İşlemleri
               </template>
-              <b-dropdown-item href="#">
+              <router-link tag="b-dropdown-item" to="/giris">
                 <b-icon-person-check-fill
                   class="mr-2"
                 ></b-icon-person-check-fill
-                >Giriş Yap</b-dropdown-item
-              >
-              <b-dropdown-item href="#"
-                ><b-icon-person-plus-fill
+                >Giriş Yap
+              </router-link>
+              <router-link tag="b-dropdown-item" to="/kayit">
+                <b-icon-person-plus-fill
                   class="mb-1 mr-2"
                 ></b-icon-person-plus-fill
-                >Kayıt Ol</b-dropdown-item
+                >Kayıt Ol
+              </router-link>
+            </b-nav-item-dropdown>
+          </b-navbar-nav>
+
+          <b-navbar-nav class="ml-auto" :class="logoutClass">
+            <b-nav-item-dropdown right class="border border-secondary rounded">
+              <template #button-content>
+                <b-icon-person-fill class="mb-1 mr-2"></b-icon-person-fill
+                >Hoşgeldin
+                <span class="text-info">{{
+                  $cookies.get("userInfos").FirstName
+                }}</span>
+              </template>
+              <b-dropdown-item @click.prevent="logout"
+                ><b-icon-power class="mr-2"></b-icon-power>Çıkış
+                Yap</b-dropdown-item
               >
+              <router-link tag="b-dropdown-item" to="/kayit">
+                <b-icon-file-earmark-person
+                  class="mb-1 mr-2"
+                ></b-icon-file-earmark-person
+                >İletişim Listesi
+              </router-link>
             </b-nav-item-dropdown>
           </b-navbar-nav>
         </b-collapse>
@@ -41,7 +63,35 @@
 </template>
 
 <script>
-  export default {};
+  export default {
+    name: "Navbar",
+    created() {
+      if (!this.$cookies.get("userInfos")) {
+        this.$cookies.set("userInfos", { FirstName: "unknown" });
+      }
+    },
+    computed: {
+      logoutClass() {
+        return {
+          "d-none": !this.$store.getters.isAuthenticated,
+        };
+      },
+      loginClass() {
+        return {
+          "d-none": this.$store.getters.isAuthenticated,
+        };
+      },
+    },
+    methods: {
+      logout() {
+        this.$store.dispatch("logoutAction");
+        //route check
+        if (this.$router.currentRoute.path != "/") {
+          this.$router.push("/");
+        }
+      },
+    },
+  };
 </script>
 
 <style scoped></style>

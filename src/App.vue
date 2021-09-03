@@ -1,18 +1,19 @@
 <template>
   <div>
     <Navbar />
-    <HomePage />
+    <router-view />
   </div>
 </template>
 
 <script>
   import Navbar from "./components/Navbar.vue";
-  import HomePage from "./views/HomePage.vue";
   export default {
     name: "App",
     components: {
       Navbar,
-      HomePage,
+    },
+    created() {
+      this.$store.dispatch("authCheckAction");
     },
   };
 </script>
