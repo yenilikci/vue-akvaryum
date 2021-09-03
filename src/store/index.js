@@ -32,7 +32,8 @@ const store = new Vuex.Store({
         //for homepage and double redirect prevention:
         if (
           router.currentRoute.path != "/giris" &&
-          router.currentRoute.path != "/"
+          router.currentRoute.path != "/" &&
+          router.currentRoute.path != "/kayit"
         ) {
           router.push("/giris");
         }
@@ -46,6 +47,7 @@ const store = new Vuex.Store({
           Password: payload.password,
         })
         .then((response) => {
+          console.log(response);
           if (response.data.IsSuccess === true) {
             commit("setJwtToken", response.data.Result.AccessToken);
             Vue.$cookies.set(
@@ -69,6 +71,39 @@ const store = new Vuex.Store({
             Swal.fire({
               title: "Giriş başarısız",
               text: "Üye girişi başarısız oldu bilgilerinizi kontrol ediniz!",
+              icon: "error",
+              confirmButtonText: "Pekala",
+            });
+          }
+        });
+    },
+    registerAction(context, payload) {
+      axios
+        .post("http://81.213.78.251:4003/Account/Create", {
+          Email: payload.email,
+          Password: payload.password,
+          FirstName: payload.firstName,
+          LastName: payload.lastName,
+          AgreementStatus: payload.status.toString(),
+          PhoneNumber: payload.phoneNumber,
+          BirthDate: payload.birthDate,
+          Gender: payload.gender,
+          Adress: payload.adress,
+        })
+        .then((response) => {
+          if (response.data.IsSuccess === true) {
+            Swal.fire({
+              title: "Kayıt İşlemi Başarılı",
+              text:
+                "Üye kayıt işlemini başarılı bir şekilde tamamladınız. Mail adresinize gelen aktivasyon mailini kontrol ediniz.",
+              icon: "success",
+              confirmButtonText: "Harika",
+            });
+          } else {
+            Swal.fire({
+              title: "Kayıt İşlemi Başarısız",
+              text:
+                "Üye kayıt işlemi başarısız oldu bilgilerinizi gözden geçiriniz.",
               icon: "error",
               confirmButtonText: "Pekala",
             });

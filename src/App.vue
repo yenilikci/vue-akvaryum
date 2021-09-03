@@ -12,7 +12,7 @@
     components: {
       Navbar,
     },
-    created() {
+    beforeCreate() {
       this.$store.dispatch("authCheckAction");
     },
   };
