@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="d-block p-5">
+    <div class="d-block mt-2">
       <div class="card p-3 shadow">
         <div class="card-header border-0 mx-3 shadow">
           <h1 class="text-secondary header">
@@ -166,7 +166,7 @@
             </button>
           </form>
         </div>
-        <div class="card-footer text-center text-secondary pb-0 pt-4">
+        <div class="card-footer text-center text-secondary pb-4 pt-4">
           Akvaryum UI Üye Kayıt
         </div>
         <b-modal ref="my-modal" hide-footer title="Sözleşme ve Şartlar">

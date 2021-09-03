@@ -33,7 +33,8 @@ const store = new Vuex.Store({
         if (
           router.currentRoute.path != "/giris" &&
           router.currentRoute.path != "/" &&
-          router.currentRoute.path != "/kayit"
+          router.currentRoute.path != "/kayit" &&
+          router.currentRoute.path != "/sifremiunuttum"
         ) {
           router.push("/giris");
         }
@@ -120,6 +121,65 @@ const store = new Vuex.Store({
       });
       commit("clearJwtToken");
       Vue.$cookies.remove("jwtToken");
+    },
+    forgotPasswordAction(context, payload) {
+      axios
+        .post("http://81.213.78.251:4003/Account/ForgotPassword", {
+          Email: payload.email,
+        })
+        .then((response) => {
+          if (response.data.IsSuccess === true) {
+            Swal.fire({
+              title: "Şifre Yenileme Talebiniz Alındı",
+              text: "Şifre yenileme adımları e-posta adresinize gönderildi",
+              icon: "success",
+              confirmButtonText: "Harika",
+            });
+          } else {
+            Swal.fire({
+              title: "Şifre Yenileme İsteği Başarısız",
+              text:
+                "Lütfen girmiş olduğunuz e-posta adresinizi kontrol ediniz.",
+              icon: "error",
+              confirmButtonText: "Pekala",
+            });
+          }
+        });
+    },
+    passwordChangeAction(context, payload) {
+      axios
+        .post(
+          "http://81.213.78.251:4003/Account/PasswordChange",
+          {
+            OldPassword: payload.oldpassword,
+            NewPassword: payload.password,
+            NewPasswordRepeat: payload.repassword,
+          },
+          {
+            headers: {
+              Authorization: `Basic ${context.state.jwtToken}`,
+            },
+          }
+        )
+        .then((response) => {
+          if (response.data.IsSuccess === true) {
+            Swal.fire({
+              title: "Şifre Değiştirme İşlemi Başarılı",
+              text:
+                "Şifre değiştirme işleminiz başarılı bir şekilde tamamlandı",
+              icon: "success",
+              confirmButtonText: "Harika",
+            });
+          } else {
+            Swal.fire({
+              title: "Şifre Değiştirme İsteği Başarısız",
+              text:
+                "Lütfen girmiş olduğunuz eski şifre, şifre ve şifre tekrar alanlarını kontrol ediniz!",
+              icon: "error",
+              confirmButtonText: "Pekala",
+            });
+          }
+        });
     },
   },
 });

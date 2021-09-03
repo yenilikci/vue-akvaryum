@@ -4,14 +4,16 @@
       <div class="card p-3 shadow">
         <div class="card-header border-0 mx-3 shadow">
           <h1 class="text-secondary header">
-            <b-icon-person-check-fill class="mr-2"></b-icon-person-check-fill
-            >Giriş Yap
+            <b-icon-patch-question class="mr-2"></b-icon-patch-question>Şifremi
+            Unuttum
           </h1>
         </div>
         <div class="card-body mt-2">
           <form @submit.prevent="onSubmit">
             <div class="form-group shadow bg-light p-3">
-              <label class="title">E-posta Adresiniz:</label>
+              <label class="title"
+                >Hesabınızın Kayıtlı Olduğu E-posta Adresi:</label
+              >
               <input
                 @blur="$v.email.$touch()"
                 v-model="email"
@@ -21,38 +23,24 @@
                 placeholder="ornek@test.com"
               />
               <small v-if="!$v.email.required" class="form-text text-danger">
-                Email alanı giriş yapmak isteyen kullanıcılar için doldurulması
-                zorunlu bir alandır
+                Şifre yenileme adımlarını göndereceğimiz için e-posta
+                doldurulması zorunlu bir alandır
               </small>
               <small v-if="!$v.email.email" class="form-text text-danger">
                 Lütfen geçerli formatta bir e-posta adresi giriniz
               </small>
             </div>
-            <div class="form-group shadow bg-light p-3">
-              <label class="title">Şifreniz:</label>
-              <input
-                @blur="$v.password.$touch()"
-                v-model="password"
-                type="password"
-                class="form-control"
-                :class="{ 'is-invalid': $v.password.$error }"
-                placeholder="******"
-              />
-              <small v-if="!$v.password.required" class="form-text text-danger">
-                Parola alanı giriş yapmak isteyen kullanıcılar için doldurulması
-                zorunlu bir alandır
-              </small>
-            </div>
+
             <button
-              class="btn btn-outline-success rounded btn-block p-3 shadow"
+              class="btn btn-outline-warning rounded btn-block p-3 shadow"
               :disabled="$v.$invalid"
             >
-              Giriş
+              Gönder
             </button>
           </form>
         </div>
         <div class="card-footer text-center text-secondary pb-4 pt-4">
-          Akvaryum UI Üye Girişi
+          Akvaryum UI Şifremi Unuttum
         </div>
       </div>
     </div>
@@ -60,11 +48,12 @@
 </template>
 <script>
   import { required, email } from "vuelidate/lib/validators";
+
   export default {
+    name: "ForgotPassword",
     data() {
       return {
         email: null,
-        password: null,
       };
     },
     validations: {
@@ -72,15 +61,11 @@
         required,
         email,
       },
-      password: {
-        required,
-      },
     },
     methods: {
       onSubmit() {
-        this.$store.dispatch("loginAction", {
+        this.$store.dispatch("forgotPasswordAction", {
           email: this.email,
-          password: this.password,
         });
       },
     },
