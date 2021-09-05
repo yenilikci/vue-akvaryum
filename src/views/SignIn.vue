@@ -51,6 +51,11 @@
             </button>
           </form>
         </div>
+        <div class="jumbotron p-2 mx-3 text-center">
+          <router-link to="/sifremiunuttum" class="f-password">
+            <b-icon-patch-question></b-icon-patch-question> Şifremi Unuttum?
+          </router-link>
+        </div>
         <div class="card-footer text-center text-secondary pb-4 pt-4">
           Akvaryum UI Üye Girişi
         </div>
@@ -96,5 +101,9 @@
   .title {
     font-weight: 400;
     color: lightslategray;
+  }
+  .f-password {
+    cursor: pointer;
+    text-decoration: none;
   }
 </style>

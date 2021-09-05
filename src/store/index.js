@@ -162,6 +162,7 @@ const store = new Vuex.Store({
           }
         )
         .then((response) => {
+          console.log(response);
           if (response.data.IsSuccess === true) {
             Swal.fire({
               title: "Şifre Değiştirme İşlemi Başarılı",
@@ -170,14 +171,43 @@ const store = new Vuex.Store({
               icon: "success",
               confirmButtonText: "Harika",
             });
+            router.push("/");
           } else {
-            Swal.fire({
-              title: "Şifre Değiştirme İsteği Başarısız",
-              text:
-                "Lütfen girmiş olduğunuz eski şifre, şifre ve şifre tekrar alanlarını kontrol ediniz!",
-              icon: "error",
-              confirmButtonText: "Pekala",
-            });
+            if (response.data.Result === "Mevcut şifreniz doğru değil!") {
+              Swal.fire({
+                title: "Şifre Değiştirme İsteği Başarısız",
+                text: response.data.Result,
+                icon: "error",
+                confirmButtonText: "Pekala",
+              });
+            } else if (
+              response.data.Result ===
+              "Yeni şifreniz eski 3 şifreniz ile aynı olamaz"
+            ) {
+              Swal.fire({
+                title: "Şifre Değiştirme İsteği Başarısız",
+                text: response.data.Result,
+                icon: "error",
+                confirmButtonText: "Pekala",
+              });
+            } else if (
+              response.data.Result == "NewPassword 8 karakterden kısa olamaz."
+            ) {
+              Swal.fire({
+                title: "Şifre Değiştirme İsteği Başarısız",
+                text: "Yeni şifreniz en az 8 karakter uzunluğunda olmalıdır.",
+                icon: "error",
+                confirmButtonText: "Pekala",
+              });
+            } else {
+              Swal.fire({
+                title: "Şifre Değiştirme İsteği Başarısız",
+                text:
+                  "Lütfen girmiş olduğunuz eski şifre, şifre ve şifre tekrar alanlarını kontrol ediniz!",
+                icon: "error",
+                confirmButtonText: "Pekala",
+              });
+            }
           }
         });
     },

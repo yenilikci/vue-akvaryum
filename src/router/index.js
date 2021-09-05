@@ -19,7 +19,7 @@ const router = new VueRouter({
       component: HomePage,
     },
     {
-      path: "/homepage",
+      path: "/anasayfa",
       component: HomePage,
     },
     {
@@ -28,7 +28,7 @@ const router = new VueRouter({
       beforeEnter(to, from, next) {
         store.dispatch("authCheckAction");
         if (store.getters.isAuthenticated) {
-          next("/homepage");
+          next("/anasayfa");
         } else {
           next();
         }
@@ -40,9 +40,9 @@ const router = new VueRouter({
       beforeEnter(to, from, next) {
         store.dispatch("authCheckAction");
         if (store.getters.isAuthenticated) {
-          next();
-        } else {
           next("/");
+        } else {
+          next();
         }
       },
     },
@@ -64,7 +64,7 @@ const router = new VueRouter({
       beforeEnter(to, from, next) {
         store.dispatch("authCheckAction");
         if (store.getters.isAuthenticated) {
-          next("/homepage");
+          next("/anasayfa");
         } else {
           next();
         }

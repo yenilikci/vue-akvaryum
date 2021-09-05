@@ -54,10 +54,6 @@
                 ></b-icon-file-earmark-person
                 >İletişim Listesi
               </router-link>
-              <router-link tag="b-dropdown-item" to="/sifremiunuttum">
-                <b-icon-patch-question class="mr-2"></b-icon-patch-question
-                >Şifremi Unuttum
-              </router-link>
               <router-link tag="b-dropdown-item" to="/sifredegistir">
                 <b-icon-key class="mr-2"></b-icon-key>Şifremi Değiştir
               </router-link>

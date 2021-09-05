@@ -39,6 +39,12 @@
               <small v-if="!$v.password.required" class="form-text text-danger">
                 Yeni şifre alanı doldurulması zorunlu bir alandır
               </small>
+              <small
+                v-if="!$v.password.minLength"
+                class="form-text text-danger"
+              >
+                Yeni şifre en az 8 karakterden oluşmalıdır
+              </small>
             </div>
             <div class="form-group shadow bg-light p-3">
               <label class="title">Yeni Şifreniz Tekrar:</label>
@@ -77,7 +83,7 @@
   </div>
 </template>
 <script>
-  import { required, sameAs } from "vuelidate/lib/validators";
+  import { required, sameAs, minLength } from "vuelidate/lib/validators";
 
   export default {
     name: "PasswordChange",
@@ -94,6 +100,7 @@
       },
       password: {
         required,
+        minLength: minLength(8),
       },
       repassword: {
         required,

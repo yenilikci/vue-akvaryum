@@ -49,6 +49,13 @@
                 Parola alanı kayıt yapmak isteyen kullanıcılar için doldurulması
                 zorunlu bir alandır
               </small>
+              <small
+                v-if="!$v.password.minLength"
+                class="form-text text-danger"
+              >
+                Parolanız en az
+                {{ $v.password.$params.minLength.min }} karakterden oluşmalıdır!
+              </small>
             </div>
             <div class="form-group shadow bg-light p-3">
               <label class="title"
@@ -179,7 +186,7 @@
   </div>
 </template>
 <script>
-  import { required, email, sameAs } from "vuelidate/lib/validators";
+  import { required, email, sameAs, minLength } from "vuelidate/lib/validators";
   export default {
     data() {
       return {
@@ -203,6 +210,7 @@
       },
       password: {
         required,
+        minLength: minLength(8),
       },
       firstName: {
         required,

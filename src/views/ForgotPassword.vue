@@ -1,6 +1,9 @@
 <template>
   <div class="container">
     <div class="d-block mt-2">
+      <span class="my-2 btn btn-secondary" @click="backView"
+        ><b-icon-arrow-left></b-icon-arrow-left> Geri</span
+      >
       <div class="card p-3 shadow">
         <div class="card-header border-0 mx-3 shadow">
           <h1 class="text-secondary header">
@@ -67,6 +70,9 @@
         this.$store.dispatch("forgotPasswordAction", {
           email: this.email,
         });
+      },
+      backView() {
+        this.$router.back();
       },
     },
   };

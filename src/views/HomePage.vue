@@ -35,27 +35,37 @@
           >
           <b-list-group-item>
             <p class="bg-secondary p-2 text-white rounded">Ad:</p>
-            {{ project.FirstName }}</b-list-group-item
+            {{
+              project.FirstName ? project.FirstName : "Bilgi Yok"
+            }}</b-list-group-item
           >
           <b-list-group-item>
             <p class="bg-secondary p-2 text-white rounded">Soyad:</p>
-            {{ project.LastName }}</b-list-group-item
+            {{
+              project.LastName ? project.LastName : "Bilgi Yok"
+            }}</b-list-group-item
           >
           <b-list-group-item
-            ><p class="bg-info p-2 text-white rounded">Finanse Ediliyor Mu?:</p>
+            ><p class="bg-info p-2 text-white rounded">Finanse Ediliyor Mu?</p>
             {{ project.isFunding === 1 ? "Evet" : "Hayır" }}</b-list-group-item
           >
           <b-list-group-item>
             <p class="bg-info p-2 text-white rounded">Yatırımcı Sayısı:</p>
-            {{ project.InvestorCount }}</b-list-group-item
+            {{
+              project.InvestorCount ? project.InvestorCount : "Bilgi Yok"
+            }}</b-list-group-item
           >
           <b-list-group-item>
             <p class="bg-info p-2 text-white rounded">Yatırımcı Tutarı:</p>
-            {{ project.InvestmentAmount }} ₺</b-list-group-item
+            {{
+              project.InvestmentAmount ? project.InvestmentAmount : "Bilgi Yok"
+            }}
+            ₺</b-list-group-item
           >
           <b-list-group-item
             ><p class="bg-info p-2 text-white rounded">Fon Edilebilir Tutar:</p>
-            {{ project.FundableAmount }} ₺</b-list-group-item
+            {{ project.FundableAmount ? project.FundableAmount : "Bilgi Yok" }}
+            ₺</b-list-group-item
           >
         </b-list-group>
       </b-card>
