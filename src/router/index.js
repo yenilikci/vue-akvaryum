@@ -7,6 +7,7 @@ import ForgotPassword from "../views/ForgotPassword.vue";
 import SignUp from "../views/SignUp.vue";
 import PasswordChange from "../views/PasswordChange.vue";
 import ContactList from "../views/ContactList.vue";
+import Profile from "../views/Profile.vue";
 import store from "../store";
 
 Vue.use(VueRouter);
@@ -42,13 +43,21 @@ const router = new VueRouter({
       path: "/liste",
       component: ContactList,
     },
+    {
+      path: "/profil",
+      component: Profile,
+    },
+    {
+      path: "/*",
+      component: HomePage,
+    },
   ],
 });
 
 router.beforeEach((to, from, next) => {
   if (
     to.path === "/giris" ||
-    to.path == "/sifremiunuttum" ||
+    to.path === "/sifremiunuttum" ||
     to.path === "/kayit"
   ) {
     store.dispatch("authCheckAction");
@@ -57,7 +66,11 @@ router.beforeEach((to, from, next) => {
     } else {
       next();
     }
-  } else if (to.path === "/sifredegistir" || to.path == "/liste") {
+  } else if (
+    to.path === "/sifredegistir" ||
+    to.path === "/liste" ||
+    to.path === "/profil"
+  ) {
     store.dispatch("authCheckAction");
     if (store.getters.isAuthenticated) {
       next();

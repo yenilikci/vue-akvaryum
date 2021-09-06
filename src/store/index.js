@@ -28,16 +28,8 @@ const store = new Vuex.Store({
       let jwtToken = localStorage.getItem("jwtToken");
       if (jwtToken) {
         commit("setJwtToken", jwtToken);
+        return true;
       } else {
-        //for homepage and double redirect prevention:
-        if (
-          router.currentRoute.path != "/giris" &&
-          router.currentRoute.path != "/" &&
-          router.currentRoute.path != "/kayit" &&
-          router.currentRoute.path != "/sifremiunuttum"
-        ) {
-          router.push("/giris");
-        }
         return false;
       }
     },

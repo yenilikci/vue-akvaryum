@@ -41,10 +41,10 @@
                 <b-icon-person-fill class="mb-1 mr-2"></b-icon-person-fill
                 >Hoşgeldin <span class="text-info mr-1">{{ firstName }}</span>
               </template>
-              <b-dropdown-item @click.prevent="logout"
-                ><b-icon-power class="mr-2"></b-icon-power>Çıkış
-                Yap</b-dropdown-item
-              >
+              <router-link tag="b-dropdown-item" to="/profil">
+                <b-icon-person-circle class="mb-1 mr-2"></b-icon-person-circle
+                >Profilim
+              </router-link>
               <router-link tag="b-dropdown-item" to="/liste">
                 <b-icon-file-earmark-person
                   class="mb-1 mr-2"
@@ -54,6 +54,10 @@
               <router-link tag="b-dropdown-item" to="/sifredegistir">
                 <b-icon-key class="mr-2"></b-icon-key>Şifremi Değiştir
               </router-link>
+              <b-dropdown-item @click.prevent="logout"
+                ><b-icon-power class="mr-2"></b-icon-power>Çıkış
+                Yap</b-dropdown-item
+              >
             </b-nav-item-dropdown>
           </b-navbar-nav>
         </b-collapse>
@@ -66,7 +70,7 @@
   export default {
     data() {
       return {
-        firstName: "Unknown",
+        firstName: "",
       };
     },
     name: "Navbar",
