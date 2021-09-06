@@ -25,64 +25,48 @@ const router = new VueRouter({
     {
       path: "/giris",
       component: SignIn,
-      beforeEnter(to, from, next) {
-        store.dispatch("authCheckAction");
-        if (store.getters.isAuthenticated) {
-          next("/anasayfa");
-        } else {
-          next();
-        }
-      },
     },
     {
       path: "/sifremiunuttum",
       component: ForgotPassword,
-      beforeEnter(to, from, next) {
-        store.dispatch("authCheckAction");
-        if (store.getters.isAuthenticated) {
-          next("/");
-        } else {
-          next();
-        }
-      },
     },
     {
       path: "/sifredegistir",
       component: PasswordChange,
-      beforeEnter(to, from, next) {
-        store.dispatch("authCheckAction");
-        if (store.getters.isAuthenticated) {
-          next();
-        } else {
-          next("/");
-        }
-      },
     },
     {
       path: "/kayit",
       component: SignUp,
-      beforeEnter(to, from, next) {
-        store.dispatch("authCheckAction");
-        if (store.getters.isAuthenticated) {
-          next("/anasayfa");
-        } else {
-          next();
-        }
-      },
     },
     {
       path: "/liste",
       component: ContactList,
-      beforeEnter(to, from, next) {
-        store.dispatch("authCheckAction");
-        if (store.getters.isAuthenticated) {
-          next();
-        } else {
-          next("/");
-        }
-      },
     },
   ],
+});
+
+router.beforeEach((to, from, next) => {
+  if (
+    to.path === "/giris" ||
+    to.path == "/sifremiunuttum" ||
+    to.path === "/kayit"
+  ) {
+    store.dispatch("authCheckAction");
+    if (store.getters.isAuthenticated) {
+      next("/anasayfa");
+    } else {
+      next();
+    }
+  } else if (to.path === "/sifredegistir" || to.path == "/liste") {
+    store.dispatch("authCheckAction");
+    if (store.getters.isAuthenticated) {
+      next();
+    } else {
+      next("/");
+    }
+  } else {
+    next();
+  }
 });
 
 export default router;
