@@ -116,6 +116,7 @@ const store = new Vuex.Store({
       });
       commit("clearJwtToken");
       localStorage.removeItem("jwtToken");
+      localStorage.removeItem("userInfos");
     },
     forgotPasswordAction(context, payload) {
       axios
