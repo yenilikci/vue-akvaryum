@@ -39,10 +39,7 @@
             <b-nav-item-dropdown right class="border border-secondary rounded">
               <template #button-content>
                 <b-icon-person-fill class="mb-1 mr-2"></b-icon-person-fill
-                >Hoşgeldin
-                <span class="text-info">{{
-                  $cookies.get("userInfos").FirstName
-                }}</span>
+                >Hoşgeldin <span class="text-info mr-1">{{ firstName }}</span>
               </template>
               <b-dropdown-item @click.prevent="logout"
                 ><b-icon-power class="mr-2"></b-icon-power>Çıkış
@@ -67,10 +64,17 @@
 
 <script>
   export default {
+    data() {
+      return {
+        firstName: "Unknown",
+      };
+    },
     name: "Navbar",
     created() {
-      if (!this.$cookies.get("userInfos")) {
-        this.$cookies.set("userInfos", { FirstName: "unknown" });
+      if (localStorage.getItem("userInfos")) {
+        this.firstName = JSON.parse(
+          localStorage.getItem("userInfos")
+        ).FirstName;
       }
     },
     computed: {

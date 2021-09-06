@@ -25,7 +25,7 @@ const store = new Vuex.Store({
   },
   actions: {
     authCheckAction({ commit }) {
-      let jwtToken = Vue.$cookies.get("jwtToken");
+      let jwtToken = localStorage.getItem("jwtToken");
       if (jwtToken) {
         commit("setJwtToken", jwtToken);
       } else {
@@ -51,15 +51,10 @@ const store = new Vuex.Store({
           console.log(response);
           if (response.data.IsSuccess === true) {
             commit("setJwtToken", response.data.Result.AccessToken);
-            Vue.$cookies.set(
-              "jwtToken",
-              response.data.Result.AccessToken,
-              "30MIN"
-            );
-            Vue.$cookies.set(
+            localStorage.setItem("jwtToken", response.data.Result.AccessToken);
+            localStorage.setItem(
               "userInfos",
-              JSON.stringify(response.data.Result.UserInfo),
-              "30MIN"
+              JSON.stringify(response.data.Result.UserInfo)
             );
             Swal.fire({
               title: "Giriş başarılı",
@@ -120,7 +115,7 @@ const store = new Vuex.Store({
         showConfirmButton: false,
       });
       commit("clearJwtToken");
-      Vue.$cookies.remove("jwtToken");
+      localStorage.removeItem("jwtToken");
     },
     forgotPasswordAction(context, payload) {
       axios
