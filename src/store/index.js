@@ -150,7 +150,6 @@ const store = new Vuex.Store({
           }
         )
         .then((response) => {
-          console.log(response);
           if (response.data.IsSuccess === true) {
             Swal.fire({
               title: "Şifre Değiştirme İşlemi Başarılı",
@@ -192,6 +191,65 @@ const store = new Vuex.Store({
                 title: "Şifre Değiştirme İsteği Başarısız",
                 text:
                   "Lütfen girmiş olduğunuz eski şifre, şifre ve şifre tekrar alanlarını kontrol ediniz!",
+                icon: "error",
+                confirmButtonText: "Pekala",
+              });
+            }
+          }
+        });
+    },
+    forgotPasswordChangeAction(context, payload) {
+      axios
+        .post("http://81.213.78.251:4003/Account/ForgotPasswordChange", {
+          RequestCode: payload.code,
+          NewPassword: payload.newPassword,
+        })
+        .then((response) => {
+          if (response.data.IsSuccess === true) {
+            Swal.fire({
+              title: "Şifreniz Başarıyla Değiştirildi",
+              text:
+                "Şifre değiştirme işleminiz başarılı bir şekilde tamamlandı",
+              icon: "success",
+              confirmButtonText: "Harika",
+            });
+            router.push("/");
+          } else {
+            if (
+              response.data.Result ===
+              "Please enter a different one from the last 3 passwords you use."
+            ) {
+              Swal.fire({
+                title: "Yeni Şifre Değiştirme İsteği Başarısız",
+                text:
+                  "Yeni şifreniz önceden kullandığınız son 3 şifreniz ile aynı olamaz",
+                icon: "error",
+                confirmButtonText: "Pekala",
+              });
+            } else if (
+              response.data.Result ===
+              "Password 8-200 karakter uzunluğuna olmalı."
+            ) {
+              Swal.fire({
+                title: "Yeni Şifre Değiştirme İsteği Başarısız",
+                text: "Yeni şifreniz 8-200 karakter uzunluğunda olmalıdır",
+                icon: "error",
+                confirmButtonText: "Pekala",
+              });
+            } else if (
+              response.data.Result.message ===
+              "Request failed with status code 400"
+            ) {
+              Swal.fire({
+                title: "Yeni Şifre Değiştirme İsteği Başarısız",
+                text: "Doğrulama kodunun geçerliliği sona ermiş",
+                icon: "error",
+                confirmButtonText: "Pekala",
+              });
+            } else {
+              Swal.fire({
+                title: "Yeni Şifre Değiştirme İsteği Başarısız",
+                text: "Lütfen alanları doğru girdiğinizden emin olunuz",
                 icon: "error",
                 confirmButtonText: "Pekala",
               });

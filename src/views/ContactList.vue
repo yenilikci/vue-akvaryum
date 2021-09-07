@@ -1,53 +1,62 @@
 <template>
   <div class="container">
-    <h2 class="jumbotron p-3 mt-3 shadow text-secondary text-center">
-      İletişim Listesi
-    </h2>
-    <b-card
-      v-for="(contact, index) in contacts"
-      :key="index"
-      class="row mx-2 shadow border-card text-left my-3"
-      no-body
-      img-alt="Image"
-      img-top
-    >
-      <div class="p-1 m-2">
-        <span class="badge badge-info mx-1 p-3">
-          <span class="title"
-            >Ad-Soyad:<span class="mx-1 text-white">{{
-              contact.FullName
-            }}</span></span
-          >
-        </span>
-        <span class="badge badge-danger mx-1 p-3">
-          <span class="title"
-            >Email:<span class="mx-1 text-white">{{
-              contact.Email
-            }}</span></span
-          >
-        </span>
-      </div>
+    <div class="d-block mt-2">
+      <div class="card p-3 shadow">
+        <div class="card-header border-0 mx-3 shadow">
+          <h1 class="text-secondary header">
+            <b-icon-file-earmark-person
+              class="mr-2"
+            ></b-icon-file-earmark-person
+            >İletişim Listesi
+          </h1>
+        </div>
+        <b-card
+          v-for="(contact, index) in contacts"
+          :key="index"
+          class="row mx-3 shadow border-card text-left my-3"
+          no-body
+          img-alt="Image"
+          img-top
+        >
+          <div class="p-1 m-2">
+            <span class="badge badge-dark mx-1 p-3">
+              <span class="title"
+                >Ad-Soyad:<span class="mx-1 text-white">{{
+                  contact.FullName
+                }}</span></span
+              >
+            </span>
+            <span class="badge badge-secondary mx-1 p-3">
+              <span class="title"
+                >Email:<span class="mx-1 text-white">{{
+                  contact.Email
+                }}</span></span
+              >
+            </span>
+          </div>
 
-      <b-list-group flush>
-        <b-list-group-item>
-          <div class="bg-white p-2 my-2 text-dark rounded shadow sub-title">
-            <p class="ml-2 pt-2 text-primary">Oluşturulma Zamanı:</p>
-            <hr />
-            <p class="ml-2">{{ contact.CreatedDate }}</p>
-          </div>
-          <div class="bg-white p-2 my-2 text-dark rounded shadow sub-title">
-            <p class="ml-2 pt-2 text-warning">Konu:</p>
-            <hr />
-            <p class="ml-2">{{ contact.Subject }}</p>
-          </div>
-          <div class="bg-white p-2 my-2 text-dark rounded shadow sub-title">
-            <p class="ml-2 pt-2 text-success">Mesaj:</p>
-            <hr />
-            <p class="ml-2">{{ contact.Message }}</p>
-          </div>
-        </b-list-group-item>
-      </b-list-group>
-    </b-card>
+          <b-list-group flush>
+            <b-list-group-item>
+              <div class="bg-white p-2 my-2 text-dark rounded shadow sub-title">
+                <p class="ml-2 pt-2 text-secondary">Oluşturulma Zamanı:</p>
+                <hr />
+                <p class="ml-2">{{ contact.CreatedDate }}</p>
+              </div>
+              <div class="bg-white p-2 my-2 text-dark rounded shadow sub-title">
+                <p class="ml-2 pt-2 text-secondary">Konu:</p>
+                <hr />
+                <p class="ml-2">{{ contact.Subject }}</p>
+              </div>
+              <div class="bg-white p-2 my-2 text-dark rounded shadow sub-title">
+                <p class="ml-2 pt-2 text-secondary">Mesaj:</p>
+                <hr />
+                <p class="ml-2">{{ contact.Message }}</p>
+              </div>
+            </b-list-group-item>
+          </b-list-group>
+        </b-card>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -79,6 +88,11 @@
 </script>
 
 <style scoped>
+  .header {
+    font-size: 28px;
+    font-weight: 500;
+    text-align: center;
+  }
   .title {
     font-weight: 500;
     font-size: 20px;
@@ -88,7 +102,7 @@
     font-size: 18px;
   }
   .badge {
-    color: #000;
+    color: rgb(204, 204, 204);
     font-size: 18px;
     font-weight: 400;
   }

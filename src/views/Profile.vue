@@ -1,9 +1,15 @@
 <template>
   <div class="container">
-    <h2 class="jumbotron p-3 mt-3 shadow text-secondary text-center">
-      Profil Bilgilerim
-    </h2>
-    <ProfileCard />
+    <div class="d-block mt-2">
+      <div class="card p-3 shadow">
+        <div class="card-header border-0 mx-3 shadow ">
+          <h1 class="text-secondary header">
+            <b-icon-person-circle class="mr-2"></b-icon-person-circle>Profilim
+          </h1>
+        </div>
+        <ProfileCard />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -17,4 +23,10 @@
   };
 </script>
 
-<style scoped></style>
+<style scoped>
+  .header {
+    font-size: 28px;
+    font-weight: 500;
+    text-align: center;
+  }
+</style>

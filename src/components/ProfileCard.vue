@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="m-3">
     <b-card class="shadow border-light border p-2">
       <div class="jumbotron p-3 shadow">
         <b-card-text>
