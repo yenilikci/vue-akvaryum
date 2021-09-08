@@ -93,6 +93,11 @@
         };
       },
     },
+    watch: {
+      firstName(val) {
+        this.firstName = val;
+      },
+    },
     methods: {
       logout() {
         this.$store.dispatch("logoutAction");
